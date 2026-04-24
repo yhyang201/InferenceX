@@ -52,7 +52,6 @@ vllm serve $MODEL --host 0.0.0.0 --port $PORT \
 --data-parallel-size $TP \
 --max-model-len $MAX_MODEL_LEN \
 --compilation-config '{"cudagraph_mode":"FULL_AND_PIECEWISE","custom_ops":["all"]}' \
---attention_config.use_fp4_indexer_cache=True \
 --tokenizer-mode deepseek_v4 \
 --tool-call-parser deepseek_v4 \
 --enable-auto-tool-choice \
