@@ -254,6 +254,8 @@ else
     # against the mounted cache from their benchmark script.
     if [[ "$MODEL" == "Qwen/Qwen3.5-397B-A17B-FP8" ]]; then
         export MODEL="/scratch/models/${MODEL#*/}"
+    elif [[ "$MODEL" == "deepseek-ai/DeepSeek-V4-Pro" ]]; then
+        export MODEL="/data/models/dsv4-pro"
     fi
     SQUASH_FILE="/data/squash/$(echo "$IMAGE" | sed 's/[\/:@#]/_/g').sqsh"
     FRAMEWORK_SUFFIX=$([[ "$FRAMEWORK" == "trt" ]] && printf '_trt' || printf '')
@@ -268,7 +270,7 @@ else
 
     srun --jobid=$JOB_ID \
         --container-image=$SQUASH_FILE \
-        --container-mounts=$GITHUB_WORKSPACE:/workspace/,$HF_HUB_CACHE_MOUNT:$HF_HUB_CACHE_MOUNT \
+        --container-mounts=$GITHUB_WORKSPACE:/workspace/,$HF_HUB_CACHE_MOUNT:$HF_HUB_CACHE_MOUNT,/data/models:/data/models \
         --no-container-mount-home \
         --container-workdir=/workspace/ \
         --no-container-entrypoint --export=ALL,PORT=8888 \

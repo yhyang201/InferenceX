@@ -22,8 +22,6 @@ fi
 
 nvidia-smi
 
-hf download "$MODEL"
-
 SERVER_LOG=/workspace/server.log
 PORT=${PORT:-8888}
 
