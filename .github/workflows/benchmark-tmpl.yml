@@ -48,8 +48,9 @@ on:
         required: true
         type: string
       moe-backend:
-        required: true
+        required: false
         type: string
+        default: 'none'
       disagg:
         required: true
         type: string
