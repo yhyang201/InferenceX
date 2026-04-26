@@ -36,6 +36,9 @@ on:
       spec-decoding:
         required: true
         type: string
+      moe-backend:
+        required: true
+        type: string
       disagg:
         required: true
         type: string
@@ -109,6 +112,7 @@ env:
   MAX_MODEL_LEN: ${{ inputs.max-model-len }}
   CONC_LIST: ${{ join(fromJson(inputs.conc-list), ' ') }}
   SPEC_DECODING: ${{ inputs.spec-decoding }}
+  MOE_BACKEND: ${{ inputs.moe-backend }}
   DISAGG: ${{ inputs.disagg }}
   RUN_EVAL: ${{ inputs.run-eval }}
   EVAL_ONLY: ${{ inputs.eval-only }}

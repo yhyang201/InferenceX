@@ -125,6 +125,7 @@ jobs:
             exp-name: ${{ matrix.config.exp-name }}
             conc-list: ${{ toJson(matrix.config.conc) }}
             spec-decoding: ${{ matrix.config.spec-decoding }}
+            moe-backend: ${{ matrix.config.moe-backend }}
             disagg: ${{ matrix.config.disagg }}
 
             prefill-num-worker: ${{ matrix.config.prefill.num-worker }}
@@ -178,6 +179,7 @@ jobs:
             dp-attn: ${{ matrix.config.dp-attn }}
             conc: ${{ matrix.config.conc }}
             spec-decoding: ${{ matrix.config.spec-decoding }}
+            moe-backend: ${{ matrix.config.moe-backend }}
             disagg: ${{ matrix.config.disagg }}
             run-eval: ${{ matrix.config.run-eval }}
 
@@ -219,6 +221,7 @@ jobs:
             dp-attn: ${{ matrix.config.dp-attn }}
             conc: ${{ matrix.config.conc }}
             spec-decoding: ${{ matrix.config.spec-decoding }}
+            moe-backend: ${{ matrix.config.moe-backend }}
             disagg: ${{ matrix.config.disagg }}
             run-eval: true
             eval-only: true
@@ -246,6 +249,7 @@ jobs:
             precision: ${{ matrix.config.precision }}
             conc-list: ${{ toJson(matrix.config.conc) }}
             spec-decoding: ${{ matrix.config.spec-decoding }}
+            moe-backend: ${{ matrix.config.moe-backend }}
             disagg: ${{ matrix.config.disagg }}
             prefill-num-worker: ${{ matrix.config.prefill.num-worker }}
             prefill-tp: ${{ matrix.config.prefill.tp }}

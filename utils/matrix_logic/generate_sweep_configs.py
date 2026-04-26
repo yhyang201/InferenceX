@@ -220,6 +220,7 @@ def generate_full_sweep(args, all_config_data, runner_data):
                     # Multinode configuration
                     # spec_decoding defaults to "none" if not specified
                     spec_decoding = bmk.get(Fields.SPEC_DECODING.value, "none")
+                    moe_backend = bmk.get(Fields.MOE_BACKEND.value, "none")
 
                     prefill = bmk[Fields.PREFILL.value]
                     decode = bmk[Fields.DECODE.value]
@@ -278,6 +279,7 @@ def generate_full_sweep(args, all_config_data, runner_data):
                             Fields.ISL.value: isl,
                             Fields.OSL.value: osl,
                             Fields.SPEC_DECODING.value: spec_decoding,
+                            Fields.MOE_BACKEND.value: moe_backend,
                             Fields.PREFILL.value: prefill,
                             Fields.DECODE.value: decode,
                             Fields.CONC.value: conc_values,  # Pass the entire list for multinode
@@ -297,6 +299,7 @@ def generate_full_sweep(args, all_config_data, runner_data):
                     ep = bmk.get(Fields.EP.value)
                     dp_attn = bmk.get(Fields.DP_ATTN.value)
                     spec_decoding = bmk.get(Fields.SPEC_DECODING.value, "none")
+                    moe_backend = bmk.get(Fields.MOE_BACKEND.value, "none")
 
                     # Apply max-tp filter if specified
                     if args.max_tp is not None:
@@ -354,6 +357,7 @@ def generate_full_sweep(args, all_config_data, runner_data):
                                 Fields.EP.value: 1,  # Default
                                 Fields.DP_ATTN.value: False,  # Default
                                 Fields.SPEC_DECODING.value: spec_decoding,
+                                Fields.MOE_BACKEND.value: moe_backend,
                                 Fields.EXP_NAME.value: f"{model_code}_{seq_len_str}",
                                 Fields.DISAGG.value: disagg,
                                 Fields.RUN_EVAL.value: False,  # Default, may be overridden by mark_eval_entries
@@ -461,6 +465,8 @@ def generate_runner_model_sweep_config(args, all_config_data, runner_data):
 
             spec_decoding = lowest_conc_entry.get(
                 Fields.SPEC_DECODING.value, "none")
+            moe_backend = lowest_conc_entry.get(
+                Fields.MOE_BACKEND.value, "none")
             prefill_config = lowest_conc_entry[Fields.PREFILL.value]
             decode_config = lowest_conc_entry[Fields.DECODE.value]
 
@@ -475,6 +481,7 @@ def generate_runner_model_sweep_config(args, all_config_data, runner_data):
                     Fields.ISL.value: 1024,
                     Fields.OSL.value: 1024,
                     Fields.SPEC_DECODING.value: spec_decoding,
+                    Fields.MOE_BACKEND.value: moe_backend,
                     Fields.PREFILL.value: {
                         Fields.NUM_WORKER.value: prefill_config[Fields.NUM_WORKER.value],
                         Fields.TP.value: prefill_config[Fields.TP.value],
@@ -511,6 +518,7 @@ def generate_runner_model_sweep_config(args, all_config_data, runner_data):
             ep = highest_tp_bmk.get(Fields.EP.value)
             dp_attn = highest_tp_bmk.get(Fields.DP_ATTN.value)
             spec_decoding = highest_tp_bmk.get(Fields.SPEC_DECODING.value, "none")
+            moe_backend = highest_tp_bmk.get(Fields.MOE_BACKEND.value, "none")
 
             for node in runner_nodes:
                 entry = {
@@ -526,6 +534,7 @@ def generate_runner_model_sweep_config(args, all_config_data, runner_data):
                     Fields.EP.value: ep if ep is not None else 1,
                     Fields.DP_ATTN.value: dp_attn if dp_attn is not None else False,
                     Fields.SPEC_DECODING.value: spec_decoding,
+                    Fields.MOE_BACKEND.value: moe_backend,
                     Fields.CONC.value: conc_value,
                     Fields.MAX_MODEL_LEN.value: 2048,
                     Fields.EXP_NAME.value: f"{model_code}_test",
@@ -577,6 +586,7 @@ def generate_test_config_sweep(args, all_config_data):
                 if is_multinode:
                     # Multinode config
                     spec_decoding = bmk.get(Fields.SPEC_DECODING.value, "none")
+                    moe_backend = bmk.get(Fields.MOE_BACKEND.value, "none")
                     prefill = bmk[Fields.PREFILL.value]
                     decode = bmk[Fields.DECODE.value]
 
@@ -613,6 +623,7 @@ def generate_test_config_sweep(args, all_config_data):
                         Fields.ISL.value: isl,
                         Fields.OSL.value: osl,
                         Fields.SPEC_DECODING.value: spec_decoding,
+                        Fields.MOE_BACKEND.value: moe_backend,
                         Fields.PREFILL.value: prefill,
                         Fields.DECODE.value: decode,
                         Fields.CONC.value: conc_values,
@@ -628,6 +639,7 @@ def generate_test_config_sweep(args, all_config_data):
                     ep = bmk.get(Fields.EP.value)
                     dp_attn = bmk.get(Fields.DP_ATTN.value)
                     spec_decoding = bmk.get(Fields.SPEC_DECODING.value, "none")
+                    moe_backend = bmk.get(Fields.MOE_BACKEND.value, "none")
 
                     # Get concurrency values
                     if Fields.CONC_LIST.value in bmk:
@@ -668,6 +680,7 @@ def generate_test_config_sweep(args, all_config_data):
                             Fields.EP.value: ep if ep is not None else 1,
                             Fields.DP_ATTN.value: dp_attn if dp_attn is not None else False,
                             Fields.SPEC_DECODING.value: spec_decoding,
+                            Fields.MOE_BACKEND.value: moe_backend,
                             Fields.EXP_NAME.value: f"{model_code}_{seq_len_str}",
                             Fields.DISAGG.value: disagg,
                             Fields.RUN_EVAL.value: False,

@@ -35,6 +35,7 @@ class Fields(Enum):
     CONC_LIST = 'conc-list'
     EP = 'ep'
     DP_ATTN = 'dp-attn'
+    MOE_BACKEND = 'moe-backend'
 
     # Multinode-specific fields (when MULTINODE = true)
     SPEC_DECODING = 'spec-decoding'
@@ -80,6 +81,7 @@ class SingleNodeMatrixEntry(BaseModel):
     spec_decoding: Literal["mtp", "draft_model", "none"] = Field(
         alias=Fields.SPEC_DECODING.value
     )
+    moe_backend: str = Field(alias=Fields.MOE_BACKEND.value)
     runner: str
     isl: int
     osl: int
@@ -119,6 +121,7 @@ class MultiNodeMatrixEntry(BaseModel):
     spec_decoding: Literal["mtp", "draft_model", "none"] = Field(
         alias=Fields.SPEC_DECODING.value
     )
+    moe_backend: str = Field(alias=Fields.MOE_BACKEND.value)
     runner: str
     isl: int
     osl: int
@@ -206,6 +209,8 @@ class SingleNodeSearchSpaceEntry(BaseModel):
     ep: Optional[int] = None
     spec_decoding: Literal["mtp", "draft_model", "none"] = Field(
         default="none", alias=Fields.SPEC_DECODING.value)
+    moe_backend: Optional[str] = Field(
+        default=None, alias=Fields.MOE_BACKEND.value)
     dp_attn: Optional[bool] = Field(
         default=None, alias=Fields.DP_ATTN.value)
     conc_start: Optional[int] = Field(
@@ -226,6 +231,8 @@ class MultiNodeSearchSpaceEntry(BaseModel):
 
     spec_decoding: Literal["mtp", "draft_model", "none"] = Field(
         default="none", alias=Fields.SPEC_DECODING.value)
+    moe_backend: Optional[str] = Field(
+        default=None, alias=Fields.MOE_BACKEND.value)
     prefill: WorkerConfig
     decode: WorkerConfig
     conc_start: Optional[int] = Field(
